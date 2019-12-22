@@ -20,7 +20,7 @@ import PropTypes from 'prop-types';
 
 function Welcome(props) {
     // in function based component parameters of function are props
-    console.log('proprs >>', props);
+    // console.log('proprs >>', props);
     return (
         <div>
             <h2>Welcome {props.name}</h2>
