@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { NavLink } from 'react-router-dom';
 export class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -10,16 +11,11 @@ export class Login extends React.Component {
             episode: 1,
             title: "Narcos"
         }
-        this.watchNext = this.watchNext.bind(this);
         console.log("i am constructor block");
     }
 
-    watchNext() {
-        this.myInterval = setInterval(() => {
-            this.setState({
-                episode: this.state.episode + 1,
-            })
-        }, 2000);
+    handleSubmit() {
+
     }
 
     componentWillMount() {
@@ -49,11 +45,19 @@ export class Login extends React.Component {
         // render will return single node
         return (
             <div>
-                <h1>Lets watch {this.state.title}</h1>
-                <h2>Episode: {this.state.episode},</h2>
-                <p>Narcos is good</p>
-                <button onClick={this.watchNext}>watch next</button>
-            </div>
+                <h2>Login</h2>
+                <p>Please provide your details to login</p>
+                <form className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input name="username" className="form-control" id="username" onChange={this.handleChange} type="text" placeholder="Username" />
+                    <label htmlFor="password">Password</label>
+                    <input name="password" className="form-control" id="password" onChange={this.handleChange} type="text" placeholder="Password" />
+                    <br></br>
+                    <button className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Register</button>
+                </form>
+                <p> Don't have an Account?</p>
+                <p>Register <NavLink to="/register">here</NavLink></p>
+            </div >
         )
     }
 }
