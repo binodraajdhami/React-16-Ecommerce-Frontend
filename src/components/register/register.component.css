@@ -22,3 +22,8 @@
     selector as an id
     selector as class
 */
+
+.danger{
+    color: red;
+    font-size: 12px;
+}

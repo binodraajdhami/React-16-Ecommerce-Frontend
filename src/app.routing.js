@@ -1,9 +1,9 @@
 // assume this file is routing configuration
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Register } from './register/register.component';
-import { Login } from './login/login.component';
-import Navigate from './header/navbar.component';
+import { Register } from './components/register/register.component';
+import { Login } from './components/login/login.component';
+import Navigate from './components/header/navbar.component';
 class About extends Component {
 
     render() {
@@ -43,7 +43,7 @@ class NotFound extends Component {
 const appRouting = () => {
     return (
         <Router>
-            <Navigate />
+            {/* <Navigate /> */}
             <Switch>
                 <Route exact path="/" component={Login}></Route>
                 <Route path="/register" component={Register}></Route>

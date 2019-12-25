@@ -47,13 +47,13 @@ export class Login extends React.Component {
             <div>
                 <h2>Login</h2>
                 <p>Please provide your details to login</p>
-                <form className="form-group">
+                <form className="form-group" onSubmit={this.handleSubmit.bind(this)}>
                     <label htmlFor="username">Username</label>
-                    <input name="username" className="form-control" id="username" onChange={this.handleChange} type="text" placeholder="Username" />
+                    <input name="username" className="form-control" id="username" onChange={this.handleChange} type="text" placeholder="Username" required />
                     <label htmlFor="password">Password</label>
-                    <input name="password" className="form-control" id="password" onChange={this.handleChange} type="text" placeholder="Password" />
+                    <input name="password" className="form-control" id="password" onChange={this.handleChange} type="text" placeholder="Password" required />
                     <br></br>
-                    <button className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Register</button>
+                    <button className="btn btn-primary">Register</button>
                 </form>
                 <p> Don't have an Account?</p>
                 <p>Register <NavLink to="/register">here</NavLink></p>
