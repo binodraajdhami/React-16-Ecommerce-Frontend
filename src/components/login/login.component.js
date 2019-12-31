@@ -1,45 +1,39 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom';
-export class Login extends React.Component {
+import notify from '../../utils/notify';
+import http from './../../utils/httpClient';
+
+export class Login extends Component {
     constructor(props) {
-        super(props);
+        super(props); //
         this.state = {
             username: 'Broadway',
             password: 'testing',
-            remember_me: true,
-            episode: 1,
-            title: "Narcos"
         }
-        console.log("i am constructor block");
     }
 
-    handleSubmit() {
+    handleSubmit(e) {
+        e.preventDefault();
+        http.post('/auth/login', { body: this.state, })
+            .then((data) => {
+                notify.showInfo(`Welcome ${data.user.username}`);
+                console.log('data >>>', data);
+                // webstorage
+                localStorage.setItem('user', JSON.stringify(data.user));
+                localStorage.setItem('token', data.token);
 
+            })
+            .catch((err) => {
+                notify.handleError(err);
+            })
     }
 
-    componentWillMount() {
-        console.log('it is life cycle state which will execute before rendering')
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-    componentDidMount() {
-        console.log('after render completed')
-    }
-
-    componentDidUpdate(previousProps, previousState) {
-        console.log('previous props .>', previousProps);
-        console.log('previous state .>', previousState);
-        console.log('update ')
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.myInterval);
-
-        console.log('component destroyed');
-    }
     // whenever a state is changed render method will be called
     render() {
-        console.log('render called');
         // 
         // this function required in class component
         // render will return single node
@@ -47,45 +41,23 @@ export class Login extends React.Component {
             <div>
                 <h2>Login</h2>
                 <p>Please provide your details to login</p>
-                <form className="form-group" onSubmit={this.handleSubmit.bind(this)}>
+                <form className="form-group" onSubmit={this.handleSubmit.bind(this)} noValidate>
                     <label htmlFor="username">Username</label>
                     <input name="username" className="form-control" id="username" onChange={this.handleChange} type="text" placeholder="Username" required />
                     <label htmlFor="password">Password</label>
                     <input name="password" className="form-control" id="password" onChange={this.handleChange} type="text" placeholder="Password" required />
                     <br></br>
-                    <button className="btn btn-primary">Register</button>
+                    <button className="btn btn-primary">Login</button>
                 </form>
                 <p> Don't have an Account?</p>
-                <p>Register <NavLink to="/register">here</NavLink></p>
+                <div>
+                    <span>Register <NavLink to="/register">here</NavLink></span>
+                    <span className="float-right"><NavLink to="/forgot-password">forgot password?</NavLink></span>
+                </div>
+
             </div >
         )
     }
 }
 
-export class Auth extends Component {
-    constructor() {
-        super();
-        this.state = {};
-    }
 
-    mount() {
-        ReactDOM.render(<Login name='abcd'></Login>, document.getElementById('login'))
-    }
-    unmount() {
-        ReactDOM.unmountComponentAtNode(document.getElementById('login'));
-    }
-
-    render() {
-        return (
-            <div>
-                <p>I am parent component</p>
-                <button onClick={this.mount} >mount</button>
-                <button onClick={this.unmount} >unmount</button>
-                <div id="login"></div>
-            </div>
-        )
-    }
-}
-
-// call bind apply
-// bind scope bind===> context supply

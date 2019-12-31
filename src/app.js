@@ -1,10 +1,14 @@
 import React from 'react';
 import AppRoutes from './app.routing';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css'
 // 
 const App = () => {
     return (
-        <AppRoutes />
+        <div>
+            <AppRoutes />
+            <ToastContainer />
+        </div>
     )
 }
 

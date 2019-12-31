@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './register.component.css';
 import APIClient from './../../utils/httpClient';
 import notify from './../../utils/notify';
-
 export class Register extends Component {
 
     constructor() {
@@ -29,7 +28,6 @@ export class Register extends Component {
     handleSubmit(e) {
         e.preventDefault(); //question?
 
-        console.log('here at submit');
         let emailError;
         let usernameError;
         let passwordError;
@@ -51,7 +49,7 @@ export class Register extends Component {
             // BE call now
             APIClient.post('/auth/register', { body: this.state })
                 .then(() => {
-                    console.log('registration success');
+                    notify.showSuccess('Registration Successfull');
                     this.props.history.push('/');// redirect to login
                 })
                 .catch((err) => {

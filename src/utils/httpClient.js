@@ -11,17 +11,23 @@ const requestHeaders = {
     'Content-Type': 'application/json'
 }
 
+
+const requestHeadersWithToken = {
+    'Content-Type': 'application/json',
+    'Authroization': localStorage.getItem('token')
+}
+
 /**
  * http get request
  * @param {string} url 
  * @param {object} headers 
  */
-function get(url, { headers = requestHeaders, params = {}, responseType = 'json' } = {}) {
+function get(url, { headers = requestHeaders, params = {}, responseType = 'json' } = {}, secured = false) {
     // observable TODO
     return http({
         method: "GET",
         url,
-        headers,
+        headers: secured ? requestHeadersWithToken : requestHeaders,
         params,
         responseType
     })
@@ -29,12 +35,12 @@ function get(url, { headers = requestHeaders, params = {}, responseType = 'json'
         .catch(err => err.response);
 }
 
-function put(url, { headers = requestHeaders, body = {}, params = {}, responseType = 'json' } = {}) {
+function put(url, { headers = requestHeaders, body = {}, params = {}, responseType = 'json' } = {}, secured = false) {
     // observable TODO
     return http({
         method: "PUT",
         url,
-        headers,
+        headers: secured ? requestHeadersWithToken : requestHeaders,
         data: body,
         params,
         responseType
@@ -43,26 +49,26 @@ function put(url, { headers = requestHeaders, body = {}, params = {}, responseTy
         .catch(err => err.response);
 }
 
-function post(url, { headers = requestHeaders, body = {}, params = {}, responseType = 'json' } = {}) {
-    // observable TODO
+function post(url, { headers = requestHeaders, body = {}, params = {}, responseType = 'json' } = {}, secured = false) {
+    // observable TODO //
     return http({
         method: "POST",
         url,
-        headers,
+        headers: secured ? requestHeadersWithToken : requestHeaders,
         data: body,
         params,
         responseType
     })
-        .then(data => data.response)
-        .catch(err => err.response);
+        .then(data => data.data);
+
 }
 
-function remove(url, { headers = requestHeaders, params = {}, responseType = 'json' } = {}) {
+function remove(url, { headers = requestHeaders, params = {}, responseType = 'json' } = {}, secured = false) {
     // observable TODO
     return http({
         method: "DELETE",
         url,
-        headers,
+        headers: secured ? requestHeadersWithToken : requestHeaders,
         params,
         responseType
     })
