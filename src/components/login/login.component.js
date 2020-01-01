@@ -12,12 +12,17 @@ export class Login extends Component {
         }
     }
 
+    // componentDidMount() {
+    //     localStorage.clear();
+    // }
+
     handleSubmit(e) {
         e.preventDefault();
         http.post('/auth/login', { body: this.state, })
             .then((data) => {
                 notify.showInfo(`Welcome ${data.user.username}`);
                 console.log('data >>>', data);
+                this.props.history.push('/dashboard');
                 // webstorage
                 localStorage.setItem('user', JSON.stringify(data.user));
                 localStorage.setItem('token', data.token);

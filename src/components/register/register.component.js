@@ -71,7 +71,7 @@ export class Register extends Component {
 
     render() {
         let form = (
-            <div className="register-container">
+            <div>
                 <h2>Register</h2>
                 <p>Please provide your details to register</p>
                 <form className="form-group" onSubmit={this.handleSubmit.bind(this)} noValidate >
