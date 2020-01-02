@@ -14,7 +14,7 @@ const requestHeaders = {
 
 const requestHeadersWithToken = {
     'Content-Type': 'application/json',
-    'Authroization': localStorage.getItem('token')
+    'Authorization': localStorage.getItem('token')
 }
 
 /**

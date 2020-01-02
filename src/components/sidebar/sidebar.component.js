@@ -14,7 +14,7 @@ const Sidebar = (props) => {
                 <Link to="/product/add">Add Products</Link>
             </li>
             <li className="side-bar-item">
-                <Link to="/product/search">Search Productsssssssss</Link>
+                <Link to="/product/search">Search Products</Link>
             </li>
             <li className="side-bar-item">
                 <Link to="/message">Messages</Link>

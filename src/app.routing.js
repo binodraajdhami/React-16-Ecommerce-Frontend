@@ -6,6 +6,7 @@ import { Login } from './components/login/login.component';
 import NavBar from './components/header/navbar.component';
 import SideBar from './components/sidebar/sidebar.component';
 import { Dashboard } from './components/dashboard/dashboard.component';
+import { AddProduct } from './components/products/add-product.compontent';
 
 class NotFound extends Component {
 
@@ -19,9 +20,9 @@ class NotFound extends Component {
     }
 }
 
-const ProtectedRoute = ({ component: Component, ...abc }) => {
+const ProtectedRoute = ({ component: Component, ...data }) => {
     return (
-        <Route path={abc.path} render={() => {
+        <Route {...data} render={(props) => {
             return (
                 localStorage.getItem('token')
                     ? (
@@ -32,7 +33,7 @@ const ProtectedRoute = ({ component: Component, ...abc }) => {
                             <div className="sidemenu">
                                 <SideBar />
                             </div>
-                            <Component />
+                            <Component {...props} />
                         </>
                     )
                     : (
@@ -56,8 +57,8 @@ const appRouting = () => {
                         {/* <Route path="/home" component={Home}></Route> */}
                         {/* <Route path="/about" component={About}></Route> */}
                         <ProtectedRoute path="/dashboard" component={Dashboard} />
-                        <ProtectedRoute path="/add-product" component={Dashboard} />
-                        <ProtectedRoute path="/edit-product" component={Dashboard} />
+                        <ProtectedRoute path="/product/add" component={AddProduct} />
+                        <ProtectedRoute path="/product/edit/:id" component={AddProduct} />
                         <Route component={NotFound}></Route>
                     </Switch>
                 </div>
