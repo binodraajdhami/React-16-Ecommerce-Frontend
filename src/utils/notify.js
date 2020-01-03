@@ -16,12 +16,12 @@ const showError = (errMsg) => {
 }
 
 const handleError = (error) => {
+    debugger;
     // collect error from entire application
     // check for error
     // parse error message
     // show appropriate error message
-    // debugger;
-    const err = error.response.data;
+    const err = error && error.response && error.response.data;
     if (err) {
         if (typeof (err.msg) == 'string') {
             showError(err.msg)

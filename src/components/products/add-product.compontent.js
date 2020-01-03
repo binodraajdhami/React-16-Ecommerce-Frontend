@@ -38,7 +38,12 @@ export class AddProduct extends React.Component {
     }
 
     handleChange = (e) => {
-        const { name, value } = e.target;
+        const { type, checked, name } = e.target;
+        let { value } = e.target;
+        if (type === 'checkbox') {
+            value = checked;
+        }
+
         this.setState((previousState) => ({
             data: {
                 ...previousState.data,
@@ -107,6 +112,15 @@ export class AddProduct extends React.Component {
             ? <button type="submit" disabled className="btn btn-info">submitting...</button>
             : <button disabled={!this.state.validForm} type="submit" className="btn btn-primary">Submit</button>
 
+        let discountDetails = this.state.data.discountedItem
+            ? <div>
+                <label htmlFor="discountType">Disocunt Type</label>
+                <input className="form-control" id="discountType" type="text" placeholder="discountType" name="discountType" onChange={this.handleChange} />
+                <label htmlFor="discountValue">Discount Value</label>
+                <input className="form-control" id="discountValue" type="text" placeholder="discountValue" name="discountValue" onChange={this.handleChange} />
+            </div>
+            : '';
+
         return (
             <div>
                 <h2>Add Product</h2>
@@ -134,13 +148,11 @@ export class AddProduct extends React.Component {
                     <input className="form-control" id="manuDate" type="text" placeholder="manuDate" name="manuDate" onChange={this.handleChange} />
                     <label htmlFor="expiryDate">expiryDate</label>
                     <input className="form-control" id="expiryDate" type="text" placeholder="expiryDate" name="expiryDate" onChange={this.handleChange} />
+                    <input id="discountedItem" type="checkbox" placeholder="discountedItem" name="discountedItem" onChange={this.handleChange} />
                     <label htmlFor="discountedItem">Discounted Item</label>
-                    <input className="form-control" id="discountedItem" type="text" placeholder="discountedItem" name="discountedItem" onChange={this.handleChange} />
-                    <label htmlFor="discountType">Disocunt Type</label>
-                    <input className="form-control" id="discountType" type="text" placeholder="discountType" name="discountType" onChange={this.handleChange} />
-                    <label htmlFor="discountValue">Discount Value</label>
-                    <input className="form-control" id="discountValue" type="text" placeholder="discountValue" name="discountValue" onChange={this.handleChange} />
+                    {discountDetails}
 
+                    <br />
                     {button}
                 </form>
             </div>

@@ -31,7 +31,7 @@ function get(url, { headers = requestHeaders, params = {}, responseType = 'json'
         params,
         responseType
     })
-        .then(data => data.response)
+        .then(data => data.data)
         .catch(err => err.response);
 }
 

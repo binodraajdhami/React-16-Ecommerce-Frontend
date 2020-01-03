@@ -7,6 +7,8 @@ import NavBar from './components/header/navbar.component';
 import SideBar from './components/sidebar/sidebar.component';
 import { Dashboard } from './components/dashboard/dashboard.component';
 import { AddProduct } from './components/products/add-product.compontent';
+import { ViewProduct } from './components/products/view-product.component';
+import { EditProduct } from './components/products/edit-product.component';
 
 class NotFound extends Component {
 
@@ -58,7 +60,8 @@ const appRouting = () => {
                         {/* <Route path="/about" component={About}></Route> */}
                         <ProtectedRoute path="/dashboard" component={Dashboard} />
                         <ProtectedRoute path="/product/add" component={AddProduct} />
-                        <ProtectedRoute path="/product/edit/:id" component={AddProduct} />
+                        <ProtectedRoute path="/product/edit/:id" component={EditProduct} />
+                        <ProtectedRoute path="/product/view" component={ViewProduct} />
                         <Route component={NotFound}></Route>
                     </Switch>
                 </div>
