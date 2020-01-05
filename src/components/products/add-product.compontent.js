@@ -2,7 +2,7 @@ import React from 'react';
 import http from './../../utils/httpClient';
 import notify from './../../utils/notify';
 
-const DefaultForm = {
+export const DefaultForm = {
     name: null,
     category: null,
     description: null,

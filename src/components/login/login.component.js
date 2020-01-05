@@ -22,10 +22,11 @@ export class Login extends Component {
             .then((data) => {
                 notify.showInfo(`Welcome ${data.user.username}`);
                 console.log('data >>>', data);
-                this.props.history.push('/dashboard');
                 // webstorage
                 localStorage.setItem('user', JSON.stringify(data.user));
                 localStorage.setItem('token', data.token);
+                
+                this.props.history.push('/dashboard');
 
             })
             .catch((err) => {
@@ -50,7 +51,7 @@ export class Login extends Component {
                     <label htmlFor="username">Username</label>
                     <input name="username" className="form-control" id="username" onChange={this.handleChange} type="text" placeholder="Username" required />
                     <label htmlFor="password">Password</label>
-                    <input name="password" className="form-control" id="password" onChange={this.handleChange} type="text" placeholder="Password" required />
+                    <input name="password" className="form-control" id="password" onChange={this.handleChange} type="password" placeholder="Password" required />
                     <br></br>
                     <button className="btn btn-primary">Login</button>
                 </form>

@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './navbar.component.css';
 
-const NavBar = () => {
+
+const NavBar = (props) => {
+
+    const logout = (e) => {
+        localStorage.clear();
+        props.history.push('/');//redirect to login
+    }
+
     return (
         <nav>
             <ul className="nav-list">
@@ -13,7 +20,7 @@ const NavBar = () => {
                     <Link to="/menu">Change-Password</Link>
                 </li>
                 <li className="nav-items">
-                    <Link to="/">Logout</Link>
+                    <button className="btn btn-default" onClick={logout}>Logout</button>
                 </li>
             </ul>
         </nav>
@@ -21,4 +28,4 @@ const NavBar = () => {
 
 }
 
-export default NavBar;
+export default withRouter(NavBar);

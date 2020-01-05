@@ -65,11 +65,11 @@ export class ViewProduct extends React.Component {
                     <td>{product.color ? product.color : 'N/A'}</td>
                     <td>{product.brand}</td>
                     <td>
-                        <button className="btn btn-info">
-                            <Link to={redirectURL}>
+                        <Link to={redirectURL}>
+                            <button className="btn btn-info">
                                 edit
-                            </Link>
-                        </button>
+                            </button>
+                        </Link>
                         <button className="btn btn-danger" onClick={() => this.handleDelete(product._id, i)} >
                             del
                         </button>

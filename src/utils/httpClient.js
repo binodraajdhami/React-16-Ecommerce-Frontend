@@ -45,8 +45,7 @@ function put(url, { headers = requestHeaders, body = {}, params = {}, responseTy
         params,
         responseType
     })
-        .then(data => data.response)
-        .catch(err => err.response);
+        .then(data => data)
 }
 
 function post(url, { headers = requestHeaders, body = {}, params = {}, responseType = 'json' } = {}, secured = false) {
