@@ -2,6 +2,7 @@ import React from 'react';
 import http from './../../utils/httpClient';
 import notify from './../../utils/notify';
 
+
 export const DefaultForm = {
     name: null,
     category: null,
@@ -22,7 +23,6 @@ export const DefaultForm = {
 }
 
 export class AddProduct extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -42,6 +42,9 @@ export class AddProduct extends React.Component {
         let { value } = e.target;
         if (type === 'checkbox') {
             value = checked;
+        }
+        if (type === 'file') {
+            value = e.target.files;
         }
 
         this.setState((previousState) => ({
@@ -89,19 +92,23 @@ export class AddProduct extends React.Component {
     }
 
     handleSubmit = (e) => {
+        let url = `http://localhost:8080/api/product?token=${localStorage.getItem('token')}`;
+
         e.preventDefault();
         this.setState({
             isSubmitting: true
         })
-        http.post('/product', { body: this.state.data }, true)
-            .then(() => {
-                notify.showSuccess("product added successfully");
-                this.props.history.push('/product/view');
-            })
-            .catch(err => {
-                this.setState({ isSubmitting: false });
-                notify.handleError(err)
-            });
+
+        http.upload("POST", url, this.state.data, this.state.data.image);
+        // http.post('/product', { body: this.state.data }, true)
+        //     .then(() => {
+        //         notify.showSuccess("product added successfully");
+        //         this.props.history.push('/product/view');
+        //     })
+        //     .catch(err => {
+        //         this.setState({ isSubmitting: false });
+        //         notify.handleError(err)
+        //     });
     }
 
 
@@ -151,6 +158,9 @@ export class AddProduct extends React.Component {
                     <input id="discountedItem" type="checkbox" placeholder="discountedItem" name="discountedItem" onChange={this.handleChange} />
                     <label htmlFor="discountedItem">Discounted Item</label>
                     {discountDetails}
+                    <br />
+                    <label htmlFor="image">Choose Image</label>
+                    <input id="image" type="file" name="image" onChange={this.handleChange} className="form-control"></input>
 
                     <br />
                     {button}

@@ -75,10 +75,32 @@ function remove(url, { headers = requestHeaders, params = {}, responseType = 'js
         .catch(err => err.response);
 }
 
+function upload(method, url, data, files) {
+    debugger;
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+
+    if (files.length) {
+        formData.append('img', files[0], files[0].name)
+    }
+    for (let key in data) {
+        formData.append(key, data[key]);
+    }
+
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            console.log('check response >>', xhr.response);
+        }
+    }
+    xhr.open(method, url, true);
+    xhr.send(formData);
+}
+
 
 export default {
     get,
     post,
     put,
-    delete: remove
+    delete: remove,
+    upload
 }

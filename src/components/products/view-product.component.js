@@ -16,16 +16,23 @@ export class ViewProduct extends React.Component {
 
     componentDidMount() {
         // life cycle of component
-        http.get('/product', {}, true)
-            .then((data) => {
-                console.log('products >>', data);
-                this.setState({
-                    products: data,
+        if (this.props.data) {
+            this.setState({
+                products: this.props.data
+            })
+        } else {
+            http.get('/product', {}, true)
+                .then((data) => {
+                    console.log('products >>', data);
+                    this.setState({
+                        products: data,
+                    })
                 })
-            })
-            .catch((err) => {
-                notify.handleError(err);
-            })
+                .catch((err) => {
+                    notify.handleError(err);
+                })
+        }
+
     }
 
     handleEdit = (e) => {
