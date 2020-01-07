@@ -92,14 +92,21 @@ export class AddProduct extends React.Component {
     }
 
     handleSubmit = (e) => {
-        let url = `http://localhost:8080/api/product?token=${localStorage.getItem('token')}`;
+        let url = `${process.env.REACT_APP_BASE_URL}/product?token=${localStorage.getItem('token')}`;
 
         e.preventDefault();
         this.setState({
             isSubmitting: true
         })
 
-        http.upload("POST", url, this.state.data, this.state.data.image);
+        http.upload("POST", url, this.state.data, this.state.data.image)
+            .then((data) => {
+                notify.showSuccess('Proudct Added Successfully');
+                this.props.history.push('/product/view');
+            })
+            .catch((err) => {
+                notify.handleError(err);
+            })
         // http.post('/product', { body: this.state.data }, true)
         //     .then(() => {
         //         notify.showSuccess("product added successfully");

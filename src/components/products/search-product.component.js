@@ -140,6 +140,12 @@ export class SearchProduct extends React.Component {
             });
     }
 
+    searchAgain = (e) => {
+        this.setState({
+            searchResult: [],
+        })
+    }
+
 
     // mandatory method for stateful components
     render() {
@@ -211,7 +217,10 @@ export class SearchProduct extends React.Component {
                     {button}
                 </form>
             </div>
-            : <ViewProduct data={this.state.searchResult} />
+            : <div>
+                <button className="btn btn-success" onClick={this.searchAgain} >search again</button>
+                <ViewProduct data={this.state.searchResult} />
+            </div>
 
         return (
             mainContent

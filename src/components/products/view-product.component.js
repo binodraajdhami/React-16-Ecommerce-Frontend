@@ -9,7 +9,8 @@ export class ViewProduct extends React.Component {
         super();
         this.state = {
             products: [],
-            isLoading: false
+            isLoading: false,
+            hideActions: false
         }
 
     }
@@ -18,7 +19,8 @@ export class ViewProduct extends React.Component {
         // life cycle of component
         if (this.props.data) {
             this.setState({
-                products: this.props.data
+                products: this.props.data,
+                hideActions: true,
             })
         } else {
             http.get('/product', {}, true)
@@ -61,8 +63,22 @@ export class ViewProduct extends React.Component {
     }
 
     render() {
+        let imgUrl = process.env.REACT_APP_IMG_URL;
         let data = this.state.products.map((product, i) => {
             let redirectURL = `/product/edit/${product._id}`;
+            let img_url = ` ${imgUrl}${product.image}`
+            let btn = this.state.hideActions
+                ? ''
+                : <>
+                    <Link to={redirectURL}>
+                        <button className="btn btn-info">
+                            edit
+                    </button>
+                    </Link>
+                    <button className="btn btn-danger" onClick={() => this.handleDelete(product._id, i)} >
+                        del
+                </button>
+                </>
             return (
                 <tr key={product._id}>
                     <td>{i + 1}</td>
@@ -70,16 +86,11 @@ export class ViewProduct extends React.Component {
                     <td>{product.category}</td>
                     <td>{product.price}</td>
                     <td>{product.color ? product.color : 'N/A'}</td>
-                    <td>{product.brand}</td>
                     <td>
-                        <Link to={redirectURL}>
-                            <button className="btn btn-info">
-                                edit
-                            </button>
-                        </Link>
-                        <button className="btn btn-danger" onClick={() => this.handleDelete(product._id, i)} >
-                            del
-                        </button>
+                        <img src={img_url} alt="product_img.png" width="200px"></img>
+                    </td>
+                    <td>
+                        {btn}
                     </td>
                 </tr >
             )
@@ -95,7 +106,7 @@ export class ViewProduct extends React.Component {
                             <th>Category</th>
                             <th>Price</th>
                             <th>Color</th>
-                            <th>Brand</th>
+                            <th>Images</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

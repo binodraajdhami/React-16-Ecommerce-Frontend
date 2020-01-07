@@ -23,6 +23,9 @@ export class EditProduct extends React.Component {
         if (type === 'checkbox') {
             value = checked;
         }
+        if (type === 'file') {
+            value = e.target.files;
+        }
         this.setState(previousState => ({
             product: {
                 ...previousState.product,
@@ -33,12 +36,12 @@ export class EditProduct extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        const productId = this.state.product._id;
+        let url = `${process.env.REACT_APP_BASE_URL}/product/${productId}?token=${localStorage.getItem('token')}`
         this.setState({
             isSubmitting: true,
         });
-        console.log('id >>', this.state.product._id);
-        const productId = this.state.product._id;
-        http.put(`/product/${productId}`, { body: this.state.product }, true)
+        http.upload('PUT',url,this.state.product,this.state.product.update_image)
             .then((data) => {
                 notify.showInfo('Product updated successfully');
                 this.props.history.push('/product/view');
@@ -64,6 +67,7 @@ export class EditProduct extends React.Component {
     }
 
     render() {
+        let imgUrl = `${process.env.REACT_APP_IMG_URL}${this.state.product.image}`
         let button = this.state.isSubmitting
             ? <button type="submit" disabled className="btn btn-info">submitting...</button>
             : <button type="submit" className="btn btn-primary">Submit</button>
@@ -102,6 +106,11 @@ export class EditProduct extends React.Component {
                 <input id="discountedItem" type="checkbox" value={this.state.product.discountedItem} placeholder="discountedItem" name="discountedItem" onChange={this.handleChange} />
                 <label htmlFor="discountedItem">Discounted Item</label>
                 {discountDetails}
+                <br />
+                <p>Image</p>
+                <img src={imgUrl} alt="product_imgage" width="150px"></img>
+                <label>Choose Image</label>
+                <input type="file" name="update_image" onChange={this.handleChange}></input>
                 <br />
                 {button}
             </form>

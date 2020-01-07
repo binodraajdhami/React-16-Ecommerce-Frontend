@@ -1,7 +1,7 @@
 import axios from 'axios';
 // base instance
 const baseURL = process.env.REACT_APP_BASE_URL
-console.log('base url >>', baseURL);
+// console.log('base url >>', baseURL);
 const http = axios.create({
     baseURL: baseURL,
     responseType: 'json'
@@ -76,24 +76,31 @@ function remove(url, { headers = requestHeaders, params = {}, responseType = 'js
 }
 
 function upload(method, url, data, files) {
-    debugger;
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
+    const promise = new Promise((resolve, reject) => {
+        debugger;
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
 
-    if (files.length) {
-        formData.append('img', files[0], files[0].name)
-    }
-    for (let key in data) {
-        formData.append(key, data[key]);
-    }
-
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-            console.log('check response >>', xhr.response);
+        if (files && files.length) {
+            formData.append('img', files[0], files[0].name)
         }
-    }
-    xhr.open(method, url, true);
-    xhr.send(formData);
+        for (let key in data) {
+            formData.append(key, data[key]);
+        }
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    resolve(xhr.response)
+                } else {
+                    reject(xhr.response);
+                }
+            }
+        }
+        xhr.open(method, url, true);
+        xhr.send(formData);
+    });
+    return promise;
 }
 
 
