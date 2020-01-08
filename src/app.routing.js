@@ -10,6 +10,7 @@ import { AddProduct } from './components/products/add-product.compontent';
 import { ViewProduct } from './components/products/view-product.component';
 import { EditProduct } from './components/products/edit-product.component';
 import { SearchProduct } from './components/products/search-product.component';
+import { ForgotPassword } from './components/forgot-password/forgot-password.component';
 
 class NotFound extends Component {
 
@@ -57,7 +58,7 @@ const appRouting = () => {
                     <Switch>
                         <Route exact path="/" component={Login}></Route>
                         <Route path="/register" component={Register}></Route>
-                        {/* <Route path="/home" component={Home}></Route> */}
+                        <Route path="/forgot-password" component={ForgotPassword}></Route>
                         {/* <Route path="/about" component={About}></Route> */}
                         <ProtectedRoute path="/dashboard" component={Dashboard} />
                         <ProtectedRoute path="/product/add" component={AddProduct} />

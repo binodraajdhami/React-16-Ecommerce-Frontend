@@ -46,7 +46,7 @@ export class SearchProduct extends React.Component {
         http.get('/product/search', { body: {} }, true)
             .then((data) => {
                 let categories = [];
-                data.forEach((item, i) => {
+                (data || []).forEach((item, i) => {
                     if (categories.indexOf(item.category) === -1) {
                         categories.push(item.category);
                     }

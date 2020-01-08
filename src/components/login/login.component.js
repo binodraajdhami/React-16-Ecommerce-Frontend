@@ -46,6 +46,7 @@ export class Login extends Component {
         return (
             <div>
                 <h2>Login</h2>
+                <h4>Welcome to Our Web Store</h4>
                 <p>Please provide your details to login</p>
                 <form className="form-group" onSubmit={this.handleSubmit.bind(this)} noValidate>
                     <label htmlFor="username">Username</label>
