@@ -11,6 +11,7 @@ import { ViewProduct } from './components/products/view-product.component';
 import { EditProduct } from './components/products/edit-product.component';
 import { SearchProduct } from './components/products/search-product.component';
 import { ForgotPassword } from './components/forgot-password/forgot-password.component';
+import { ResetPassword } from './components/reset-password/reset-password.component';
 
 class NotFound extends Component {
 
@@ -59,6 +60,7 @@ const appRouting = () => {
                         <Route exact path="/" component={Login}></Route>
                         <Route path="/register" component={Register}></Route>
                         <Route path="/forgot-password" component={ForgotPassword}></Route>
+                        <Route path="/reset-password/:token" component={ResetPassword}></Route>
                         {/* <Route path="/about" component={About}></Route> */}
                         <ProtectedRoute path="/dashboard" component={Dashboard} />
                         <ProtectedRoute path="/product/add" component={AddProduct} />
