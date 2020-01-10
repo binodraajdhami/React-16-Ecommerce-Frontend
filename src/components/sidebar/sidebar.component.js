@@ -17,7 +17,7 @@ const Sidebar = (props) => {
                 <Link to="/product/search">Search Products</Link>
             </li>
             <li className="side-bar-item">
-                <Link to="/message">Messages</Link>
+                <Link to="/chat">Instant Messages</Link>
             </li>
             <li className="side-bar-item">
                 <Link to="/profile">Profile</Link>

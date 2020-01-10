@@ -12,6 +12,7 @@ import { EditProduct } from './components/products/edit-product.component';
 import { SearchProduct } from './components/products/search-product.component';
 import { ForgotPassword } from './components/forgot-password/forgot-password.component';
 import { ResetPassword } from './components/reset-password/reset-password.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 class NotFound extends Component {
 
@@ -67,6 +68,7 @@ const appRouting = () => {
                         <ProtectedRoute path="/product/edit/:id" component={EditProduct} />
                         <ProtectedRoute path="/product/view" component={ViewProduct} />
                         <ProtectedRoute path="/product/search" component={SearchProduct} />
+                        <ProtectedRoute path="/chat" component={ChatComponent} />
                         <Route component={NotFound}></Route>
                     </Switch>
                 </div>

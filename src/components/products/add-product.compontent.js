@@ -27,10 +27,8 @@ export class AddProduct extends React.Component {
         super(props);
         this.state = {
             data: {
-                ...DefaultForm
             },
             error: {
-                ...DefaultForm
             },
             validForm: false,
             isSubmitting: false
