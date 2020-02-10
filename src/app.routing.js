@@ -13,6 +13,7 @@ import { SearchProduct } from './components/products/search-product.component';
 import { ForgotPassword } from './components/forgot-password/forgot-password.component';
 import { ResetPassword } from './components/reset-password/reset-password.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ListProduct } from './components/products/list-product.component';
 
 class NotFound extends Component {
 
@@ -34,7 +35,7 @@ const ProtectedRoute = ({ component: Component, ...data }) => {
                     ? (
                         <>
                             <div className="navmenu">
-                                <NavBar />
+                                <NavBar isLoggedIn={localStorage.getItem('token') ? true : false} />
                             </div>
                             <div className="sidemenu">
                                 <SideBar />
@@ -51,6 +52,28 @@ const ProtectedRoute = ({ component: Component, ...data }) => {
 }
 
 
+const PublicRoute = ({ component: Component, ...data }) => {
+    return (
+        <Route {...data} render={(props) => {
+            return (
+
+                <>
+                    <div className="navmenu">
+                        <NavBar isLoggedIn={localStorage.getItem('token') ? true : false} />
+                    </div>
+                    {/* <div className="sidemenu">
+                        <SideBar />
+                    </div> */}
+                    <Component {...props} />
+                </>
+
+            )
+        }} />
+    )
+}
+
+
+
 
 const appRouting = () => {
     return (
@@ -58,7 +81,8 @@ const appRouting = () => {
             <div>
                 <div className="content">
                     <Switch>
-                        <Route exact path="/" component={Login}></Route>
+                        <PublicRoute exact path="/" component={ListProduct}></PublicRoute>
+                        <PublicRoute exact path="/login" component={Login}></PublicRoute>
                         <Route path="/register" component={Register}></Route>
                         <Route path="/forgot-password" component={ForgotPassword}></Route>
                         <Route path="/reset-password/:token" component={ResetPassword}></Route>

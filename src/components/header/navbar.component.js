@@ -9,6 +9,7 @@ const NavBar = (props) => {
         localStorage.clear();
         props.history.push('/');//redirect to login
     }
+    console.log('props >>', props.isLoggedIn);
 
     return (
         <nav>

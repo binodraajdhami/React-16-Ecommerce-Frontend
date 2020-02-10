@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as io from 'socket.io-client';
+import './chat.component.css'
 export class ChatComponent extends Component {
     socket;
     user;
@@ -15,13 +16,11 @@ export class ChatComponent extends Component {
                 message: '',
                 receiverName: '',
                 receiverId: '',
-                // time: new Date().getTime()
             }
         }
     }
 
     componentDidMount() {
-        this.socket.emit('hi', 'Hello from react');
         this.socketBlock();
     }
 
@@ -29,25 +28,23 @@ export class ChatComponent extends Component {
         this.socket.on('hello', (data) => {
             console.log('data in hello >>>', data);
         })
-        // this.socket.on('reply-msg', (msg) => {
-        //     console.log('messages >>', msg);
-        //     // let messages = this.state.messages.push(msg.mess);
-        //     // this.setState({
-        //     //     messages
-        //     // });
+        this.socket.on('reply-msg', (msg) => {
+            console.log('msg >>',msg);
+            // let { messages } = this.state.messages
+            // messages.push(msg);
+            // this.setState((pre) => ({
+            //     ...pre.requestData,
+            //     messages: messages
+            // }))
 
-        // })
+        })
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.socket.emit('new-msg', this.state.requestData);
-        let updatedMessage = this.state.messages;
-        console.log('updated message >>', updatedMessage);
-        updatedMessage.push('hi +' + this.state.requestData.message);
-        this.setState({
-            messages: updatedMessage
-        })
+        const { requestData } = this.state;
+        requestData.time = Date.now();
+        this.socket.emit('new-msg', requestData);
     }
 
     handleChange = (e) => {
@@ -69,13 +66,18 @@ export class ChatComponent extends Component {
                 <p>Let's Chat <ins>{this.user.username}</ins></p>
                 <div className="row">
                     <div className="col-md-6">
-                        {msgData}
-                    </div>
-                    <div className="col-md-6">
+                        <div className="chat-container">
+                            <ins>Messages</ins>
+                            {msgData}
+                        </div>
                         <form className="form-group" onSubmit={this.handleSubmit}>
-                            <input name="message" type="text" className="form-control"></input>
+                            <input name="message" type="text" onChange={this.handleChange} className="form-control"></input>
                             <button className="btn btn-success" type="submit">send</button>
                         </form>
+                    </div>
+                    <div className="col-md-2"></div>
+                    <div className="col-md-4 chat-container">
+                        <ins>Users</ins>
                     </div>
 
                 </div>
